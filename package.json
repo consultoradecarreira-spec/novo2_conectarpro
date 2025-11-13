@@ -1,0 +1,17 @@
+{
+  "name": "conectarpro-netlify",
+  "version": "1.0.0",
+  "description": "ConectarPRO - Plataforma de Conexão entre Moradores e Prestadores",
+  "main": "index.js",
+  "scripts": {
+    "dev": "netlify dev",
+    "build": "echo 'Build complete'"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.38.0"
+  },
+  "devDependencies": {
+    "netlify-cli": "^17.0.0"
+  }
+}
+
