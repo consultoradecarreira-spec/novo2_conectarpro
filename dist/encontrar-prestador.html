@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encontrar Prestador - ConectarPRO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="/" class="text-2xl font-bold">
+                <span class="text-orange-600">Conectar</span><span class="text-blue-600">PRO</span>
+            </a>
+            <nav class="hidden md:flex gap-8">
+                <a href="/" class="text-gray-700 hover:text-orange-600 transition">Início</a>
+                <a href="/cadastro-morador.html" class="text-gray-700 hover:text-orange-600 transition">Sou Morador</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 py-12">
+        <h1 class="text-4xl font-bold text-gray-900 mb-8">Encontrar Prestador</h1>
+
+        <!-- Filtros -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                    <label for="categoria" class="block text-sm font-medium text-gray-700 mb-2">Categoria</label>
+                    <select id="categoria" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        <option value="">Todas as categorias</option>
+                        <option value="Alimentação">🍽️ Alimentação</option>
+                        <option value="Automotivo">🚗 Automotivo</option>
+                        <option value="Bem-Estar">💆 Bem-Estar</option>
+                        <option value="Carreira e Consultoria">💼 Carreira e Consultoria</option>
+                        <option value="Costuras e Reparos">✂️ Costuras e Reparos</option>
+                        <option value="Dedetização">🐛 Dedetização</option>
+                        <option value="Delivery">🚚 Delivery</option>
+                        <option value="Eventos e Lazer">🎉 Eventos e Lazer</option>
+                        <option value="Jardinagem">🌱 Jardinagem</option>
+                        <option value="Mudanças e Carretos">📦 Mudanças e Carretos</option>
+                        <option value="Pets">🐕 Pets</option>
+                        <option value="Pinturas & Cia">🎨 Pinturas & Cia</option>
+                        <option value="Presentes e Mimos">🎁 Presentes e Mimos</option>
+                        <option value="Reformas e Reparos">🔧 Reformas e Reparos</option>
+                        <option value="Segurança">🛡️ Segurança</option>
+                        <option value="Serviços de Emergência">⚠️ Serviços de Emergência</option>
+                        <option value="Serviços Domésticos">🏠 Serviços Domésticos</option>
+                        <option value="Sustentabilidade">♻️ Sustentabilidade</option>
+                        <option value="Transporte">🚐 Transporte</option>
+                        <option value="Viagem e Turismo">✈️ Viagem e Turismo</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="busca" class="block text-sm font-medium text-gray-700 mb-2">Buscar por Nome</label>
+                    <input type="text" id="busca" placeholder="Nome do profissional..." class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                </div>
+                <div>
+                    <label for="filtrar" class="block text-sm font-medium text-gray-700 mb-2">&nbsp;</label>
+                    <button onclick="filtrarPrestadores()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded-lg transition">
+                        Filtrar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lista de Prestadores -->
+        <div id="listaPrestadores" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="bg-white rounded-lg shadow-lg p-6 text-center">
+                <p class="text-gray-600">Carregando prestadores...</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white mt-12">
+        <div class="max-w-7xl mx-auto px-4 py-8 text-center">
+            <p>&copy; 2024 ConectarPRO. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Inicializar Supabase
+        const SUPABASE_URL = 'https://dvbomxvwqspdtyeuyiwl.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2Ym9teHZ3cXNwZHR5ZXV5aXdsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI2NTU4NjEsImV4cCI6MjA3ODIzMTg2MX0.1pVzczHvHB9KQIY3qxwPgPPhf5a8nlHLEPAppGLnQAE';
+        
+        const { createClient } = window.supabase;
+        const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        // Carregar prestadores ao iniciar
+        carregarPrestadores();
+
+        async function carregarPrestadores() {
+            try {
+                const { data, error } = await supabase
+                    .from('prestadores')
+                    .select('*')
+                    .order('criado_em', { ascending: false });
+
+                if (error) throw error;
+
+                exibirPrestadores(data || []);
+            } catch (error) {
+                console.error('Erro ao carregar prestadores:', error);
+                document.getElementById('listaPrestadores').innerHTML = '<p class="text-red-600">Erro ao carregar prestadores</p>';
+            }
+        }
+
+        function exibirPrestadores(prestadores) {
+            const lista = document.getElementById('listaPrestadores');
+            
+            if (prestadores.length === 0) {
+                lista.innerHTML = '<p class="text-gray-600 col-span-full text-center py-8">Nenhum prestador encontrado</p>';
+                return;
+            }
+
+            lista.innerHTML = prestadores.map(p => `
+                <div class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition">
+                    <div class="flex items-start justify-between mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900">${p.nome}</h3>
+                            <p class="text-gray-600 text-sm">${p.profissao}</p>
+                        </div>
+                        ${p.selo_superqi ? '<span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-semibold">🛡️ SuperQI</span>' : ''}
+                    </div>
+                    
+                    <div class="mb-4">
+                        <span class="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">${p.categoria}</span>
+                    </div>
+
+                    ${p.descricao ? `<p class="text-gray-600 mb-4 line-clamp-3">${p.descricao}</p>` : ''}
+
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center gap-1">
+                            <span class="text-yellow-400">⭐</span>
+                            <span class="font-semibold">${p.avaliacao || '0'}</span>
+                        </div>
+                        ${p.verificado ? '<span class="text-green-600 text-sm font-semibold">✓ Verificado</span>' : ''}
+                    </div>
+
+                    <div class="space-y-2">
+                        <p class="text-gray-600 text-sm">📞 ${p.telefone}</p>
+                        <p class="text-gray-600 text-sm">📧 ${p.email}</p>
+                    </div>
+
+                    <button onclick="contatarPrestador('${p.id}')" class="w-full mt-4 bg-orange-600 hover:bg-orange-700 text-white font-bold py-2 rounded-lg transition">
+                        Entrar em Contato
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function filtrarPrestadores() {
+            const categoria = document.getElementById('categoria').value;
+            const busca = document.getElementById('busca').value.toLowerCase();
+
+            supabase
+                .from('prestadores')
+                .select('*')
+                .then(({ data, error }) => {
+                    if (error) throw error;
+
+                    let filtrados = data || [];
+
+                    if (categoria) {
+                        filtrados = filtrados.filter(p => p.categoria === categoria);
+                    }
+
+                    if (busca) {
+                        filtrados = filtrados.filter(p => 
+                            p.nome.toLowerCase().includes(busca) ||
+                            p.profissao.toLowerCase().includes(busca)
+                        );
+                    }
+
+                    exibirPrestadores(filtrados);
+                })
+                .catch(error => console.error('Erro ao filtrar:', error));
+        }
+
+        function contatarPrestador(id) {
+            // Aqui você pode implementar um modal de contato ou redirecionar
+            alert('Funcionalidade de contato será implementada em breve!');
+        }
+    </script>
+</body>
+</html>
+
