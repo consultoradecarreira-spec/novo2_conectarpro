@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indicar Prestador - ConectarPRO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="/" class="text-3xl font-bold">
+                <span class="text-black">Conectar</span><span class="text-orange-500">PRO</span>
+            </a>
+            <button class="md:hidden text-gray-700">☰</button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-2xl mx-auto px-4 py-12">
+        <div class="bg-white rounded-lg shadow-lg p-8">
+            <h1 class="text-4xl font-bold text-gray-900 mb-2">Indicar um Prestador</h1>
+            <p class="text-gray-600 mb-8">Conhece um profissional excelente? Indique para a comunidade ConectarPRO!</p>
+
+            <!-- Mensagens de Feedback -->
+            <div id="successMessage" class="hidden mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg">
+                ✅ Indicação enviada com sucesso! Obrigado por contribuir com a comunidade.
+            </div>
+            <div id="errorMessage" class="hidden mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+                ❌ Erro ao enviar indicação. Por favor, tente novamente.
+            </div>
+
+            <!-- Formulário -->
+            <form id="formIndicacao" class="space-y-6">
+                <!-- Seu Nome -->
+                <div>
+                    <label for="seuNome" class="block text-sm font-medium text-gray-700 mb-2">Seu Nome *</label>
+                    <input type="text" id="seuNome" name="seuNome" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent" placeholder="Seu nome completo">
+                </div>
+
+                <!-- Seu Email -->
+                <div>
+                    <label for="seuEmail" class="block text-sm font-medium text-gray-700 mb-2">Seu Email *</label>
+                    <input type="email" id="seuEmail" name="seuEmail" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent" placeholder="seu@email.com">
+                </div>
+
+                <!-- Nome do Prestador -->
+                <div>
+                    <label for="nomePrestador" class="block text-sm font-medium text-gray-700 mb-2">Nome do Prestador *</label>
+                    <input type="text" id="nomePrestador" name="nomePrestador" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent" placeholder="Nome completo do prestador">
+                </div>
+
+                <!-- Profissão/Serviço -->
+                <div>
+                    <label for="profissao" class="block text-sm font-medium text-gray-700 mb-2">Profissão/Serviço *</label>
+                    <input type="text" id="profissao" name="profissao" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent" placeholder="Ex: Encanador, Eletricista, etc">
+                </div>
+
+                <!-- Contato do Prestador -->
+                <div>
+                    <label for="telefonePrestador" class="block text-sm font-medium text-gray-700 mb-2">Telefone/WhatsApp do Prestador *</label>
+                    <input type="tel" id="telefonePrestador" name="telefonePrestador" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent" placeholder="(11) 99999-9999">
+                </div>
+
+                <!-- Por que indicar -->
+                <div>
+                    <label for="motivo" class="block text-sm font-medium text-gray-700 mb-2">Por que você o recomenda? *</label>
+                    <textarea id="motivo" name="motivo" rows="4" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent" placeholder="Conte-nos sobre a qualidade do trabalho, pontualidade, profissionalismo, etc..."></textarea>
+                </div>
+
+                <!-- Botão Submit -->
+                <div class="flex gap-4">
+                    <button type="submit" class="flex-1 bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 rounded-lg transition">
+                        Enviar Indicação
+                    </button>
+                    <a href="/" class="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-900 font-bold py-3 rounded-lg transition text-center">
+                        Cancelar
+                    </a>
+                </div>
+
+                <p class="text-sm text-gray-600 text-center">
+                    * Campos obrigatórios
+                </p>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 py-12 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p>&copy; 2025 ConectarPRO. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Inicializar Supabase
+        const SUPABASE_URL = 'https://dvbomxvwqspdtyeuyiwl.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2Ym9teHZ3cXNwZHR5ZXV5aXdsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI2NTU4NjEsImV4cCI6MjA3ODIzMTg2MX0.1pVzczHvHB9KQIY3qxwPgPPhf5a8nlHLEPAppGLnQAE';
+        
+        const { createClient } = window.supabase;
+        const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        // Elementos do formulário
+        const form = document.getElementById('formIndicacao');
+        const successMessage = document.getElementById('successMessage');
+        const errorMessage = document.getElementById('errorMessage');
+
+        // Submeter formulário
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Limpar mensagens anteriores
+            successMessage.classList.add('hidden');
+            errorMessage.classList.add('hidden');
+
+            // Coletar dados do formulário
+            const formData = {
+                nome_indicador: document.getElementById('seuNome').value,
+                email_indicador: document.getElementById('seuEmail').value,
+                nome_prestador: document.getElementById('nomePrestador').value,
+                profissao: document.getElementById('profissao').value,
+                telefone_prestador: document.getElementById('telefonePrestador').value,
+                motivo_indicacao: document.getElementById('motivo').value
+            };
+
+            try {
+                // Inserir no Supabase (tabela de indicações)
+                const { data, error } = await supabase
+                    .from('indicacoes')
+                    .insert([formData]);
+
+                if (error) {
+                    throw error;
+                }
+
+                // Mostrar mensagem de sucesso
+                successMessage.classList.remove('hidden');
+                form.reset();
+
+                // Redirecionar após 2 segundos
+                setTimeout(() => {
+                    window.location.href = '/';
+                }, 2000);
+
+            } catch (error) {
+                console.error('Erro:', error);
+                errorMessage.textContent = '❌ Erro ao enviar indicação: ' + error.message;
+                errorMessage.classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
+

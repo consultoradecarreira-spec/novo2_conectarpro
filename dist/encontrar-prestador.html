@@ -9,76 +9,143 @@
 </head>
 <body class="bg-gray-50">
     <!-- Header -->
-    <header class="bg-white shadow-sm sticky top-0 z-50">
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="/" class="text-2xl font-bold">
-                <span class="text-orange-600">Conectar</span><span class="text-blue-600">PRO</span>
+            <a href="/" class="text-3xl font-bold">
+                <span class="text-black">Conectar</span><span class="text-orange-500">PRO</span>
             </a>
-            <nav class="hidden md:flex gap-8">
-                <a href="/" class="text-gray-700 hover:text-orange-600 transition">Início</a>
-                <a href="/cadastro-morador.html" class="text-gray-700 hover:text-orange-600 transition">Sou Morador</a>
-            </nav>
+            <button class="md:hidden text-gray-700">☰</button>
         </div>
     </header>
 
     <!-- Main Content -->
     <main class="max-w-7xl mx-auto px-4 py-12">
-        <h1 class="text-4xl font-bold text-gray-900 mb-8">Encontrar Prestador</h1>
+        <!-- Filtros Section -->
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">Encontre o Prestador Ideal</h1>
+            <p class="text-gray-600 mb-8">Filtre pelos melhores profissionais para o seu condomínio.</p>
 
-        <!-- Filtros -->
-        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div>
-                    <label for="categoria" class="block text-sm font-medium text-gray-700 mb-2">Categoria</label>
-                    <select id="categoria" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
-                        <option value="">Todas as categorias</option>
-                        <option value="Alimentação">🍽️ Alimentação</option>
-                        <option value="Automotivo">🚗 Automotivo</option>
-                        <option value="Bem-Estar">💆 Bem-Estar</option>
-                        <option value="Carreira e Consultoria">💼 Carreira e Consultoria</option>
-                        <option value="Costuras e Reparos">✂️ Costuras e Reparos</option>
-                        <option value="Dedetização">🐛 Dedetização</option>
-                        <option value="Delivery">🚚 Delivery</option>
-                        <option value="Eventos e Lazer">🎉 Eventos e Lazer</option>
-                        <option value="Jardinagem">🌱 Jardinagem</option>
-                        <option value="Mudanças e Carretos">📦 Mudanças e Carretos</option>
-                        <option value="Pets">🐕 Pets</option>
-                        <option value="Pinturas & Cia">🎨 Pinturas & Cia</option>
-                        <option value="Presentes e Mimos">🎁 Presentes e Mimos</option>
-                        <option value="Reformas e Reparos">🔧 Reformas e Reparos</option>
-                        <option value="Segurança">🛡️ Segurança</option>
-                        <option value="Serviços de Emergência">⚠️ Serviços de Emergência</option>
-                        <option value="Serviços Domésticos">🏠 Serviços Domésticos</option>
-                        <option value="Sustentabilidade">♻️ Sustentabilidade</option>
-                        <option value="Transporte">🚐 Transporte</option>
-                        <option value="Viagem e Turismo">✈️ Viagem e Turismo</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="busca" class="block text-sm font-medium text-gray-700 mb-2">Buscar por Nome</label>
-                    <input type="text" id="busca" placeholder="Nome do profissional..." class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
-                </div>
-                <div>
-                    <label for="filtrar" class="block text-sm font-medium text-gray-700 mb-2">&nbsp;</label>
-                    <button onclick="filtrarPrestadores()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded-lg transition">
-                        Filtrar
-                    </button>
-                </div>
+            <!-- Search Box -->
+            <input type="text" id="busca" placeholder="Buscar por nome ou serviço..." class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg mb-6 focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+
+            <!-- Filtros Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+                <!-- Categoria -->
+                <select id="categoria" class="px-4 py-3 border-2 border-teal-300 rounded-lg focus:ring-2 focus:ring-orange-500">
+                    <option value="">Pinturas & Cia</option>
+                    <option value="Alimentação">Alimentação</option>
+                    <option value="Automotivo">Automotivo</option>
+                    <option value="Bem-Estar">Bem-Estar</option>
+                    <option value="Carreira e Consultoria">Carreira e Consultoria</option>
+                    <option value="Costuras e Reparos">Costuras e Reparos</option>
+                    <option value="Dedetização">Dedetização</option>
+                    <option value="Delivery">Delivery</option>
+                    <option value="Eventos e Lazer">Eventos e Lazer</option>
+                    <option value="Jardinagem">Jardinagem</option>
+                    <option value="Mudanças e Carretos">Mudanças e Carretos</option>
+                    <option value="Pets">Pets</option>
+                    <option value="Pinturas & Cia">Pinturas & Cia</option>
+                    <option value="Presentes e Mimos">Presentes e Mimos</option>
+                    <option value="Reformas e Reparos">Reformas e Reparos</option>
+                    <option value="Segurança">Segurança</option>
+                    <option value="Serviços de Emergência">Serviços de Emergência</option>
+                    <option value="Serviços Domésticos">Serviços Domésticos</option>
+                    <option value="Sustentabilidade">Sustentabilidade</option>
+                    <option value="Transporte">Transporte</option>
+                    <option value="Viagem e Turismo">Viagem e Turismo</option>
+                </select>
+
+                <!-- Avaliação -->
+                <select id="avaliacao" class="px-4 py-3 border-2 border-orange-300 rounded-lg focus:ring-2 focus:ring-orange-500">
+                    <option value="">Qualquer Avaliação</option>
+                    <option value="5">⭐⭐⭐⭐⭐ 5 Estrelas</option>
+                    <option value="4">⭐⭐⭐⭐ 4+ Estrelas</option>
+                    <option value="3">⭐⭐⭐ 3+ Estrelas</option>
+                </select>
+
+                <!-- Estado -->
+                <select id="estado" class="px-4 py-3 border-2 border-blue-300 rounded-lg focus:ring-2 focus:ring-orange-500">
+                    <option value="">Todos os Estados</option>
+                    <option value="SP">São Paulo</option>
+                    <option value="RJ">Rio de Janeiro</option>
+                    <option value="MG">Minas Gerais</option>
+                    <option value="BA">Bahia</option>
+                    <option value="RS">Rio Grande do Sul</option>
+                </select>
+
+                <!-- Cidade -->
+                <select id="cidade" class="px-4 py-3 border-2 border-red-300 rounded-lg focus:ring-2 focus:ring-orange-500">
+                    <option value="">Todas as Cidades</option>
+                </select>
+
+                <!-- Selo -->
+                <select id="selo" class="px-4 py-3 border-2 border-teal-300 rounded-lg focus:ring-2 focus:ring-orange-500">
+                    <option value="">Todos</option>
+                    <option value="true">🛡️ Selo SuperQI</option>
+                </select>
+
+                <!-- Filtro Avançado -->
+                <input type="text" id="filtroAvancado" placeholder="Bairro, condomínio, experiência..." class="px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500">
             </div>
-        </div>
 
-        <!-- Lista de Prestadores -->
-        <div id="listaPrestadores" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="bg-white rounded-lg shadow-lg p-6 text-center">
-                <p class="text-gray-600">Carregando prestadores...</p>
+            <!-- Resultado -->
+            <div class="text-center py-8">
+                <p id="resultadoText" class="text-gray-600 font-semibold">0 prestador(es) encontrado(s).</p>
+                <p class="text-gray-500 text-sm">Nenhum prestador encontrado com os filtros selecionados.</p>
+            </div>
+
+            <!-- Selecione um prestador -->
+            <div class="text-center py-12">
+                <p class="text-5xl mb-4">🔍</p>
+                <h3 class="text-2xl font-bold text-gray-900 mb-2">Selecione um prestador</h3>
+                <p class="text-gray-600">Clique em um perfil na lista ao lado para ver os detalhes completos, avaliações e informações de contato.</p>
             </div>
         </div>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white mt-12">
-        <div class="max-w-7xl mx-auto px-4 py-8 text-center">
-            <p>&copy; 2024 ConectarPRO. Todos os direitos reservados.</p>
+    <footer class="bg-white border-t border-gray-200 py-12 mt-12">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">
+                        <span class="text-black">Conectar</span><span class="text-orange-500">PRO</span>
+                    </h3>
+                    <p class="text-gray-600 text-sm">Conectando Condomínios e Prestadores de Serviço com segurança e qualidade.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-orange-500 mb-4">Para Moradores</h4>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li><a href="/encontrar-prestador.html" class="hover:text-orange-500 transition">Encontrar Prestadores</a></li>
+                        <li><a href="/indicar-prestador.html" class="hover:text-orange-500 transition">Indicar Prestador</a></li>
+                        <li><a href="#" class="hover:text-orange-500 transition">Planos</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-orange-500 mb-4">Para Prestadores</h4>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li><a href="/cadastro-prestador.html" class="hover:text-orange-500 transition">Cadastrar-se</a></li>
+                        <li><a href="#" class="hover:text-orange-500 transition">Selo SuperQI</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-orange-500 mb-4">Suporte</h4>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li><a href="#" class="hover:text-orange-500 transition">FAQ</a></li>
+                        <li><a href="#" class="hover:text-orange-500 transition">Política de Privacidade</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bg-teal-50 border-2 border-teal-300 rounded-lg p-4 mb-8 text-center">
+                <p class="text-teal-700 text-sm font-semibold">
+                    🔵 Selo SuperQI — Garantia de Qualidade e Integridade: prestadores verificados e bem avaliados pela comunidade ConectarPRO.
+                </p>
+            </div>
+
+            <div class="border-t border-gray-200 pt-8 text-center text-sm text-gray-600">
+                <p>&copy; 2025 ConectarPRO. Todos os direitos reservados.</p>
+            </div>
         </div>
     </footer>
 
@@ -90,100 +157,66 @@
         const { createClient } = window.supabase;
         const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-        // Carregar prestadores ao iniciar
-        carregarPrestadores();
+        // Event listeners para filtros
+        document.getElementById('busca').addEventListener('input', filtrar);
+        document.getElementById('categoria').addEventListener('change', filtrar);
+        document.getElementById('avaliacao').addEventListener('change', filtrar);
+        document.getElementById('estado').addEventListener('change', filtrar);
+        document.getElementById('cidade').addEventListener('change', filtrar);
+        document.getElementById('selo').addEventListener('change', filtrar);
+        document.getElementById('filtroAvancado').addEventListener('input', filtrar);
 
-        async function carregarPrestadores() {
+        async function filtrar() {
             try {
                 const { data, error } = await supabase
                     .from('prestadores')
-                    .select('*')
-                    .order('criado_em', { ascending: false });
+                    .select('*');
 
                 if (error) throw error;
 
-                exibirPrestadores(data || []);
-            } catch (error) {
-                console.error('Erro ao carregar prestadores:', error);
-                document.getElementById('listaPrestadores').innerHTML = '<p class="text-red-600">Erro ao carregar prestadores</p>';
-            }
-        }
+                let prestadores = data || [];
 
-        function exibirPrestadores(prestadores) {
-            const lista = document.getElementById('listaPrestadores');
-            
-            if (prestadores.length === 0) {
-                lista.innerHTML = '<p class="text-gray-600 col-span-full text-center py-8">Nenhum prestador encontrado</p>';
-                return;
-            }
+                // Aplicar filtros
+                const busca = document.getElementById('busca').value.toLowerCase();
+                const categoria = document.getElementById('categoria').value;
+                const avaliacao = document.getElementById('avaliacao').value;
+                const selo = document.getElementById('selo').value;
+                const filtroAvancado = document.getElementById('filtroAvancado').value.toLowerCase();
 
-            lista.innerHTML = prestadores.map(p => `
-                <div class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition">
-                    <div class="flex items-start justify-between mb-4">
-                        <div>
-                            <h3 class="text-xl font-bold text-gray-900">${p.nome}</h3>
-                            <p class="text-gray-600 text-sm">${p.profissao}</p>
-                        </div>
-                        ${p.selo_superqi ? '<span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-semibold">🛡️ SuperQI</span>' : ''}
-                    </div>
-                    
-                    <div class="mb-4">
-                        <span class="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">${p.categoria}</span>
-                    </div>
-
-                    ${p.descricao ? `<p class="text-gray-600 mb-4 line-clamp-3">${p.descricao}</p>` : ''}
-
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="flex items-center gap-1">
-                            <span class="text-yellow-400">⭐</span>
-                            <span class="font-semibold">${p.avaliacao || '0'}</span>
-                        </div>
-                        ${p.verificado ? '<span class="text-green-600 text-sm font-semibold">✓ Verificado</span>' : ''}
-                    </div>
-
-                    <div class="space-y-2">
-                        <p class="text-gray-600 text-sm">📞 ${p.telefone}</p>
-                        <p class="text-gray-600 text-sm">📧 ${p.email}</p>
-                    </div>
-
-                    <button onclick="contatarPrestador('${p.id}')" class="w-full mt-4 bg-orange-600 hover:bg-orange-700 text-white font-bold py-2 rounded-lg transition">
-                        Entrar em Contato
-                    </button>
-                </div>
-            `).join('');
-        }
-
-        function filtrarPrestadores() {
-            const categoria = document.getElementById('categoria').value;
-            const busca = document.getElementById('busca').value.toLowerCase();
-
-            supabase
-                .from('prestadores')
-                .select('*')
-                .then(({ data, error }) => {
-                    if (error) throw error;
-
-                    let filtrados = data || [];
-
-                    if (categoria) {
-                        filtrados = filtrados.filter(p => p.categoria === categoria);
-                    }
+                prestadores = prestadores.filter(p => {
+                    let match = true;
 
                     if (busca) {
-                        filtrados = filtrados.filter(p => 
-                            p.nome.toLowerCase().includes(busca) ||
-                            p.profissao.toLowerCase().includes(busca)
-                        );
+                        match = match && (p.nome.toLowerCase().includes(busca) || p.profissao.toLowerCase().includes(busca));
                     }
 
-                    exibirPrestadores(filtrados);
-                })
-                .catch(error => console.error('Erro ao filtrar:', error));
-        }
+                    if (categoria) {
+                        match = match && p.categoria === categoria;
+                    }
 
-        function contatarPrestador(id) {
-            // Aqui você pode implementar um modal de contato ou redirecionar
-            alert('Funcionalidade de contato será implementada em breve!');
+                    if (avaliacao) {
+                        match = match && parseFloat(p.avaliacao) >= parseFloat(avaliacao);
+                    }
+
+                    if (selo === 'true') {
+                        match = match && p.selo_superqi === true;
+                    }
+
+                    if (filtroAvancado) {
+                        match = match && (p.nome.toLowerCase().includes(filtroAvancado) || 
+                                        p.descricao?.toLowerCase().includes(filtroAvancado));
+                    }
+
+                    return match;
+                });
+
+                // Atualizar resultado
+                const resultadoText = document.getElementById('resultadoText');
+                resultadoText.textContent = `${prestadores.length} prestador(es) encontrado(s).`;
+
+            } catch (error) {
+                console.error('Erro:', error);
+            }
         }
     </script>
 </body>
