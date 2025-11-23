@@ -9,20 +9,45 @@
 </head>
 <body class="bg-gray-50">
     <!-- Header -->
-    <header class="bg-white border-b border-gray-200">
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="/" class="text-2xl font-bold">
+            <a href="/" class="text-3xl font-bold">
                 <span class="text-black">Conectar</span><span class="text-orange-500">PRO</span>
             </a>
-            <nav class="hidden md:flex gap-6">
-                <a href="/encontrar-prestador.html" class="text-gray-700 hover:text-orange-500">Encontrar Prestador</a>
-                <a href="/indicar-prestador.html" class="text-gray-700 hover:text-orange-500">Indicar Prestador</a>
-                <a href="/cadastro-morador.html" class="text-gray-700 hover:text-orange-500">Sou Morador</a>
-                <a href="/cadastro-prestador.html" class="text-gray-700 hover:text-orange-500">Sou Prestador</a>
-                <a href="/login.html" class="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600">Entrar</a>
+            
+            <!-- Desktop Menu -->
+            <nav class="hidden md:flex gap-8 items-center">
+                <a href="/encontrar-prestador.html" class="text-gray-700 hover:text-orange-500 transition font-medium">Encontrar Prestador</a>
+                <a href="/indicar-prestador.html" class="text-gray-700 hover:text-orange-500 transition font-medium">Indicar Prestador</a>
+                <a href="/cadastro-morador.html" class="text-gray-700 hover:text-orange-500 transition font-medium">Sou Morador</a>
+                <a href="/cadastro-prestador.html" class="text-gray-700 hover:text-orange-500 transition font-medium">Sou Prestador</a>
+                <a href="#" class="text-gray-700 hover:text-orange-500 transition font-medium">Blog</a>
+                <a href="#" class="text-gray-700 hover:text-orange-500 transition font-medium">Entrar</a>
+            </nav>
+            
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden text-gray-700" onclick="toggleMobileMenu()">☰</button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white border-t border-gray-200">
+            <nav class="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-4">
+                <a href="/encontrar-prestador.html" class="text-gray-700 hover:text-orange-500 transition font-medium py-2">Encontrar Prestador</a>
+                <a href="/indicar-prestador.html" class="text-gray-700 hover:text-orange-500 transition font-medium py-2">Indicar Prestador</a>
+                <a href="/cadastro-morador.html" class="text-gray-700 hover:text-orange-500 transition font-medium py-2">Sou Morador</a>
+                <a href="/cadastro-prestador.html" class="text-gray-700 hover:text-orange-500 transition font-medium py-2">Sou Prestador</a>
+                <a href="#" class="text-gray-700 hover:text-orange-500 transition font-medium py-2">Blog</a>
+                <a href="#" class="text-gray-700 hover:text-orange-500 transition font-medium py-2">Entrar</a>
             </nav>
         </div>
     </header>
+    
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
 
     <!-- Main Content -->
     <main class="max-w-4xl mx-auto px-4 py-12">

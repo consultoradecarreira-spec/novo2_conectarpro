@@ -13,9 +13,40 @@
             <a href="/" class="text-3xl font-bold">
                 <span class="text-black">Conectar</span><span class="text-orange-500">PRO</span>
             </a>
-            <button class="md:hidden text-gray-700">☰</button>
+            
+            <!-- Desktop Menu -->
+            <nav class="hidden md:flex gap-8 items-center">
+                <a href="/encontrar-prestador.html" class="text-gray-700 hover:text-orange-500 transition font-medium">Encontrar Prestador</a>
+                <a href="/indicar-prestador.html" class="text-gray-700 hover:text-orange-500 transition font-medium">Indicar Prestador</a>
+                <a href="/cadastro-morador.html" class="text-gray-700 hover:text-orange-500 transition font-medium">Sou Morador</a>
+                <a href="/cadastro-prestador.html" class="text-gray-700 hover:text-orange-500 transition font-medium">Sou Prestador</a>
+                <a href="#" class="text-gray-700 hover:text-orange-500 transition font-medium">Blog</a>
+                <a href="#" class="text-gray-700 hover:text-orange-500 transition font-medium">Entrar</a>
+            </nav>
+            
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden text-gray-700" onclick="toggleMobileMenu()">☰</button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white border-t border-gray-200">
+            <nav class="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-4">
+                <a href="/encontrar-prestador.html" class="text-gray-700 hover:text-orange-500 transition font-medium py-2">Encontrar Prestador</a>
+                <a href="/indicar-prestador.html" class="text-gray-700 hover:text-orange-500 transition font-medium py-2">Indicar Prestador</a>
+                <a href="/cadastro-morador.html" class="text-gray-700 hover:text-orange-500 transition font-medium py-2">Sou Morador</a>
+                <a href="/cadastro-prestador.html" class="text-gray-700 hover:text-orange-500 transition font-medium py-2">Sou Prestador</a>
+                <a href="#" class="text-gray-700 hover:text-orange-500 transition font-medium py-2">Blog</a>
+                <a href="#" class="text-gray-700 hover:text-orange-500 transition font-medium py-2">Entrar</a>
+            </nav>
         </div>
     </header>
+    
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
 
     <!-- Main Content -->
     <main class="max-w-7xl mx-auto px-4 py-12">
