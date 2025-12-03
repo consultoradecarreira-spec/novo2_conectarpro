@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Encontrar Prestador - ConectarPRO</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body class="bg-gray-50">
     <!-- Header -->
@@ -51,205 +50,147 @@
 
     <!-- Main Content -->
     <main class="max-w-7xl mx-auto px-4 py-12">
-        <!-- Filtros Section -->
-        <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
-            <h1 class="text-3xl font-bold text-gray-900 mb-2">Encontre o Prestador Ideal</h1>
-            <p class="text-gray-600 mb-8">Filtre pelos melhores profissionais para o seu condomínio.</p>
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-900 mb-4">Encontrar Prestador</h1>
+            <p class="text-lg text-gray-600">Busque por categoria e encontre o prestador ideal para seu serviço</p>
+        </div>
 
-            <!-- Search Box -->
-            <input type="text" id="busca" placeholder="Buscar por nome ou serviço..." class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg mb-6 focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+        <!-- Search Bar -->
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Categoria</label>
+                    <select class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-orange-500">
+                        <option>Selecione uma categoria</option>
+                        <option>Encanador</option>
+                        <option>Eletricista</option>
+                        <option>Pintor</option>
+                        <option>Pedreiro</option>
+                        <option>Carpinteiro</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Cidade</label>
+                    <input type="text" placeholder="Digite a cidade" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-orange-500">
+                </div>
+                
+                <div class="flex items-end">
+                    <button class="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 rounded-lg transition">
+                        Buscar
+                    </button>
+                </div>
+            </div>
+        </div>
 
-            <!-- Filtros Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
-                <!-- Categoria -->
-                <select id="categoria" class="px-4 py-3 border-2 border-teal-300 rounded-lg focus:ring-2 focus:ring-orange-500">
-                    <option value="">Pinturas & Cia</option>
-                    <option value="Alimentação">Alimentação</option>
-                    <option value="Automotivo">Automotivo</option>
-                    <option value="Bem-Estar">Bem-Estar</option>
-                    <option value="Carreira e Consultoria">Carreira e Consultoria</option>
-                    <option value="Costuras e Reparos">Costuras e Reparos</option>
-                    <option value="Dedetização">Dedetização</option>
-                    <option value="Delivery">Delivery</option>
-                    <option value="Eventos e Lazer">Eventos e Lazer</option>
-                    <option value="Jardinagem">Jardinagem</option>
-                    <option value="Mudanças e Carretos">Mudanças e Carretos</option>
-                    <option value="Pets">Pets</option>
-                    <option value="Pinturas & Cia">Pinturas & Cia</option>
-                    <option value="Presentes e Mimos">Presentes e Mimos</option>
-                    <option value="Reformas e Reparos">Reformas e Reparos</option>
-                    <option value="Segurança">Segurança</option>
-                    <option value="Serviços de Emergência">Serviços de Emergência</option>
-                    <option value="Serviços Domésticos">Serviços Domésticos</option>
-                    <option value="Sustentabilidade">Sustentabilidade</option>
-                    <option value="Transporte">Transporte</option>
-                    <option value="Viagem e Turismo">Viagem e Turismo</option>
-                </select>
-
-                <!-- Avaliação -->
-                <select id="avaliacao" class="px-4 py-3 border-2 border-orange-300 rounded-lg focus:ring-2 focus:ring-orange-500">
-                    <option value="">Qualquer Avaliação</option>
-                    <option value="5">⭐⭐⭐⭐⭐ 5 Estrelas</option>
-                    <option value="4">⭐⭐⭐⭐ 4+ Estrelas</option>
-                    <option value="3">⭐⭐⭐ 3+ Estrelas</option>
-                </select>
-
-                <!-- Estado -->
-                <select id="estado" class="px-4 py-3 border-2 border-blue-300 rounded-lg focus:ring-2 focus:ring-orange-500">
-                    <option value="">Todos os Estados</option>
-                    <option value="SP">São Paulo</option>
-                    <option value="RJ">Rio de Janeiro</option>
-                    <option value="MG">Minas Gerais</option>
-                    <option value="BA">Bahia</option>
-                    <option value="RS">Rio Grande do Sul</option>
-                </select>
-
-                <!-- Cidade -->
-                <select id="cidade" class="px-4 py-3 border-2 border-red-300 rounded-lg focus:ring-2 focus:ring-orange-500">
-                    <option value="">Todas as Cidades</option>
-                </select>
-
-                <!-- Selo -->
-                <select id="selo" class="px-4 py-3 border-2 border-teal-300 rounded-lg focus:ring-2 focus:ring-orange-500">
-                    <option value="">Todos</option>
-                    <option value="true">🛡️ Selo SuperQI</option>
-                </select>
-
-                <!-- Filtro Avançado -->
-                <input type="text" id="filtroAvancado" placeholder="Bairro, condomínio, experiência..." class="px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500">
+        <!-- Prestadores Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Prestador Card 1 -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="h-48 bg-gray-300 flex items-center justify-center">
+                    <span class="text-gray-500 text-4xl">👨‍🔧</span>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">João Silva</h3>
+                    <p class="text-orange-500 font-semibold mb-2">Encanador</p>
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="text-yellow-400">★★★★★</span>
+                        <span class="text-gray-600 text-sm">(24 avaliações)</span>
+                    </div>
+                    <p class="text-gray-600 text-sm mb-4">Especialista em encanamento residencial e comercial com 15 anos de experiência.</p>
+                    <button class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 rounded-lg transition">
+                        Ver Perfil
+                    </button>
+                </div>
             </div>
 
-            <!-- Resultado -->
-            <div class="text-center py-8">
-                <p id="resultadoText" class="text-gray-600 font-semibold">0 prestador(es) encontrado(s).</p>
-                <p class="text-gray-500 text-sm">Nenhum prestador encontrado com os filtros selecionados.</p>
+            <!-- Prestador Card 2 -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="h-48 bg-gray-300 flex items-center justify-center">
+                    <span class="text-gray-500 text-4xl">⚡</span>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Carlos Santos</h3>
+                    <p class="text-orange-500 font-semibold mb-2">Eletricista</p>
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="text-yellow-400">★★★★★</span>
+                        <span class="text-gray-600 text-sm">(18 avaliações)</span>
+                    </div>
+                    <p class="text-gray-600 text-sm mb-4">Eletricista certificado com experiência em instalações e manutenção.</p>
+                    <button class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 rounded-lg transition">
+                        Ver Perfil
+                    </button>
+                </div>
             </div>
 
-            <!-- Selecione um prestador -->
-            <div class="text-center py-12">
-                <p class="text-5xl mb-4">🔍</p>
-                <h3 class="text-2xl font-bold text-gray-900 mb-2">Selecione um prestador</h3>
-                <p class="text-gray-600">Clique em um perfil na lista ao lado para ver os detalhes completos, avaliações e informações de contato.</p>
+            <!-- Prestador Card 3 -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="h-48 bg-gray-300 flex items-center justify-center">
+                    <span class="text-gray-500 text-4xl">🎨</span>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Pedro Oliveira</h3>
+                    <p class="text-orange-500 font-semibold mb-2">Pintor</p>
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="text-yellow-400">★★★★☆</span>
+                        <span class="text-gray-600 text-sm">(12 avaliações)</span>
+                    </div>
+                    <p class="text-gray-600 text-sm mb-4">Pintor profissional especializado em pintura residencial e comercial.</p>
+                    <button class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 rounded-lg transition">
+                        Ver Perfil
+                    </button>
+                </div>
             </div>
         </div>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-white border-t border-gray-200 py-12 mt-12">
+    <footer class="bg-white border-t border-gray-200 py-12 mt-16">
         <div class="max-w-7xl mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
                 <div>
-                    <h3 class="text-xl font-bold mb-4">
-                        <span class="text-black">Conectar</span><span class="text-orange-500">PRO</span>
-                    </h3>
-                    <p class="text-gray-600 text-sm">Conectando Condomínios e Prestadores de Serviço com segurança e qualidade.</p>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">ConectarPRO</h3>
+                    <p class="text-gray-600 mb-4">Conectando Condomínios e Prestadores de Serviço com segurança e qualidade.</p>
+                    <p class="text-gray-600 text-sm">Email: contato@conectarpro.com.br<br>WhatsApp: (45) 99114-8733</p>
                 </div>
+                
                 <div>
-                    <h4 class="font-bold text-orange-500 mb-4">Para Moradores</h4>
-                    <ul class="space-y-2 text-sm text-gray-600">
-                        <li><a href="/encontrar-prestador.html" class="hover:text-orange-500 transition">Encontrar Prestadores</a></li>
-                        <li><a href="/indicar-prestador.html" class="hover:text-orange-500 transition">Indicar Prestador</a></li>
-                        <li><a href="#" class="hover:text-orange-500 transition">Planos</a></li>
+                    <h3 class="text-orange-500 font-bold mb-4">Para Moradores</h3>
+                    <ul class="space-y-2 text-gray-600">
+                        <li><a href="/encontrar-prestador.html" class="hover:text-orange-500">Encontrar Prestadores</a></li>
+                        <li><a href="/indicar-prestador.html" class="hover:text-orange-500">Indicar Prestador</a></li>
+                        <li><a href="/planos-morador.html" class="hover:text-orange-500">Ver Planos</a></li>
+                        <li><a href="#" class="hover:text-orange-500">Termos de Uso</a></li>
                     </ul>
                 </div>
+                
                 <div>
-                    <h4 class="font-bold text-orange-500 mb-4">Para Prestadores</h4>
-                    <ul class="space-y-2 text-sm text-gray-600">
-                        <li><a href="/cadastro-prestador.html" class="hover:text-orange-500 transition">Cadastrar-se</a></li>
-                        <li><a href="#" class="hover:text-orange-500 transition">Selo SuperQI</a></li>
+                    <h3 class="text-orange-500 font-bold mb-4">Para Prestadores</h3>
+                    <ul class="space-y-2 text-gray-600">
+                        <li><a href="/cadastro-prestador.html" class="hover:text-orange-500">Cadastrar-se</a></li>
+                        <li><a href="/planos-prestador.html" class="hover:text-orange-500">Ver Planos</a></li>
+                        <li><a href="#" class="hover:text-orange-500">Selo SuperQI</a></li>
+                        <li><a href="#" class="hover:text-orange-500">Termos de Uso</a></li>
                     </ul>
                 </div>
+                
                 <div>
-                    <h4 class="font-bold text-orange-500 mb-4">Suporte</h4>
-                    <ul class="space-y-2 text-sm text-gray-600">
-                        <li><a href="#" class="hover:text-orange-500 transition">FAQ</a></li>
-                        <li><a href="#" class="hover:text-orange-500 transition">Política de Privacidade</a></li>
+                    <h3 class="text-orange-500 font-bold mb-4">Suporte</h3>
+                    <ul class="space-y-2 text-gray-600">
+                        <li><a href="#" class="hover:text-orange-500">FAQ</a></li>
+                        <li><a href="#" class="hover:text-orange-500">Política de Privacidade</a></li>
+                        <li><a href="#" class="hover:text-orange-500">Blog</a></li>
                     </ul>
                 </div>
             </div>
-
-            <div class="bg-teal-50 border-2 border-teal-300 rounded-lg p-4 mb-8 text-center">
-                <p class="text-teal-700 text-sm font-semibold">
-                    🔵 Selo SuperQI — Garantia de Qualidade e Integridade: prestadores verificados e bem avaliados pela comunidade ConectarPRO.
-                </p>
-            </div>
-
-            <div class="border-t border-gray-200 pt-8 text-center text-sm text-gray-600">
-                <p>&copy; 2025 ConectarPRO. Todos os direitos reservados.</p>
+            
+            <div class="border-t border-gray-200 pt-8 text-center">
+                <div class="bg-green-50 border border-green-200 rounded-lg p-4 mb-6 inline-block">
+                    <p class="text-green-700 font-semibold">🛡️ Selo SuperQI — Garantia de Qualidade e Integridade: prestadores verificados e bem avaliados pela comunidade ConectarPRO.</p>
+                </div>
+                <p class="text-gray-600">&copy; 2025 ConectarPRO. Todos os direitos reservados.</p>
             </div>
         </div>
     </footer>
-
-    <script>
-        // Inicializar Supabase
-        const SUPABASE_URL = 'https://dvbomxvwqspdtyeuyiwl.supabase.co';
-        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR2Ym9teHZ3cXNwZHR5ZXV5aXdsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI2NTU4NjEsImV4cCI6MjA3ODIzMTg2MX0.1pVzczHvHB9KQIY3qxwPgPPhf5a8nlHLEPAppGLnQAE';
-        
-        const { createClient } = window.supabase;
-        const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
-
-        // Event listeners para filtros
-        document.getElementById('busca').addEventListener('input', filtrar);
-        document.getElementById('categoria').addEventListener('change', filtrar);
-        document.getElementById('avaliacao').addEventListener('change', filtrar);
-        document.getElementById('estado').addEventListener('change', filtrar);
-        document.getElementById('cidade').addEventListener('change', filtrar);
-        document.getElementById('selo').addEventListener('change', filtrar);
-        document.getElementById('filtroAvancado').addEventListener('input', filtrar);
-
-        async function filtrar() {
-            try {
-                const { data, error } = await supabase
-                    .from('prestadores')
-                    .select('*');
-
-                if (error) throw error;
-
-                let prestadores = data || [];
-
-                // Aplicar filtros
-                const busca = document.getElementById('busca').value.toLowerCase();
-                const categoria = document.getElementById('categoria').value;
-                const avaliacao = document.getElementById('avaliacao').value;
-                const selo = document.getElementById('selo').value;
-                const filtroAvancado = document.getElementById('filtroAvancado').value.toLowerCase();
-
-                prestadores = prestadores.filter(p => {
-                    let match = true;
-
-                    if (busca) {
-                        match = match && (p.nome.toLowerCase().includes(busca) || p.profissao.toLowerCase().includes(busca));
-                    }
-
-                    if (categoria) {
-                        match = match && p.categoria === categoria;
-                    }
-
-                    if (avaliacao) {
-                        match = match && parseFloat(p.avaliacao) >= parseFloat(avaliacao);
-                    }
-
-                    if (selo === 'true') {
-                        match = match && p.selo_superqi === true;
-                    }
-
-                    if (filtroAvancado) {
-                        match = match && (p.nome.toLowerCase().includes(filtroAvancado) || 
-                                        p.descricao?.toLowerCase().includes(filtroAvancado));
-                    }
-
-                    return match;
-                });
-
-                // Atualizar resultado
-                const resultadoText = document.getElementById('resultadoText');
-                resultadoText.textContent = `${prestadores.length} prestador(es) encontrado(s).`;
-
-            } catch (error) {
-                console.error('Erro:', error);
-            }
-        }
-    </script>
 </body>
 </html>
-
